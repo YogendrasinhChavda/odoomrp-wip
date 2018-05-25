@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="mrp_bom_percentage_form_view" model="ir.ui.view">
+            <field name="name">mrp.bom.percentage.form</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='routing_id']" position="after">
+                    <field name="qty_to_consume" />
+                </xpath>
+                <label for="product_qty" position="before">
+                    <field name="by_percentage" />
+                </label>
+                <xpath expr="//field[@name='product_qty']"
+                       position="attributes">
+                    <attribute name="attrs">{'invisible': [('by_percentage','=',True)]}</attribute>
+                </xpath>
+                <label for="product_qty" position="attributes">
+                    <attribute name="attrs">{'invisible': [('by_percentage','=',True)]}</attribute>
+                </label>
+            </field>
+        </record>
+        
+        <record id="mrp.mrp_bom_tree_parent_view" model="ir.ui.view">
+            <field name="name">mrp.bom.tree</field>
+            <field name="model">mrp.bom</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="product_tmpl_id"/>
+                    <field name="code"/>
+                    <field name="sequence"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="mrp_bom_percentage_view_tree" model="ir.ui.view">
+            <field name="name">mrp.bom.percentage.tree</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_tree_parent_view"/>
+            <field name="arch" type="xml">
+                <field name="code" position="after">
+                    <field name="by_percentage" />
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
